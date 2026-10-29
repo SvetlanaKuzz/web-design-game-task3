@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Платформер — Финальная версия</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="game"></canvas>
+
+<div id="hud">
+  <div class="pill"><span class="hud-shard" aria-hidden="true"></span><span id="hud-coins">0</span></div>
+  <div class="pill"><span class="hud-life" aria-hidden="true"></span><span id="hud-lives">3</span></div>
+  <div class="pill level-pill"><span class="hud-location-mark" id="hud-loc-icon" aria-hidden="true"></span><span id="hud-level">1/5</span><div class="level-track"><i id="hud-progress"></i></div></div>
+</div>
+
+<div id="perks">
+  <div class="perk" data-perk="speed"><span class="perk-mark speed-mark"></span><div class="bar"><i></i></div></div>
+  <div class="perk" data-perk="double"><span class="perk-mark double-mark"></span><div class="bar"><i></i></div></div>
+  <div class="perk" data-perk="magnet"><span class="perk-mark magnet-mark"></span><div class="bar"><i></i></div></div>
+  <div class="perk" data-perk="shield"><span class="perk-mark shield-mark"></span></div>
+</div>
+
+<div id="game-tip" aria-live="polite">
+  <div class="tip-icon" id="tip-icon" aria-hidden="true"><span class="tip-mark"></span></div>
+  <div class="tip-copy"><b id="tip-title">Подсказка</b><span id="tip-text"></span></div>
+  <button id="tip-close" aria-label="Закрыть подсказку">×</button>
+</div>
+<div id="dialog-layer" role="dialog" aria-modal="true" aria-labelledby="dialog-name" aria-describedby="dialog-text">
+  <div class="dialog-box">
+    <canvas class="dialog-portrait" id="dialog-portrait" width="104" height="132" aria-hidden="true"></canvas>
+    <div class="dialog-content">
+      
+      <h2 id="dialog-name">Лесной хранитель</h2>
+      <p id="dialog-text"></p>
+      <div class="dialog-footer"><span class="dialog-hint">Нажми E или Enter, чтобы продолжить</span><button id="dialog-next" type="button">Продолжить →</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="admin-panel" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:999; background:rgba(10,20,35,0.95); border:1px solid rgba(100,200,255,0.3); border-radius:12px; padding:20px; color:#e0e8f0; font-family:system-ui; min-width:280px; box-shadow:0 10px 40px rgba(0,0,0,0.8);">
+  <h3 style="margin-bottom:12px; color:#aaddff;">Админ-панель</h3>
+  <p style="font-size:12px; opacity:0.7; margin-bottom:8px;">Телепорт на уровень:</p>
+  <div id="admin-levels" style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;"></div>
+  <button id="admin-add-lives" style="width:100%; padding:9px 10px; margin-bottom:8px; border:1px solid rgba(74,222,128,.45); border-radius:6px; background:rgba(34,197,94,.18); color:#bbf7d0; cursor:pointer; font-weight:700;">＋ Добавить 100 жизней</button>
+  <button id="admin-close" style="width:100%; padding:8px; border:none; border-radius:6px; background:rgba(255,255,255,0.1); color:#fff; cursor:pointer;">Закрыть (F9)</button>
+</div>
+<div id="admin-status" role="status" aria-live="polite" style="position:fixed;right:14px;top:14px;z-index:1000;padding:9px 13px;border-radius:12px;background:rgba(12,18,28,.88);border:1px solid rgba(148,163,184,.35);color:#dbeafe;font:600 12px/1.35 system-ui,sans-serif;box-shadow:0 8px 24px #0003;pointer-events:none;display:none; opacity:0; transition:opacity .18s ease;">РЕЖИМ ВКЛЮЧЁН</div>
+<div id="controls">
+  <div class="side">
+    <button class="btn" data-key="left" aria-label="Влево">◀</button>
+    <button class="btn" data-key="right" aria-label="Вправо">▶</button>
+  </div>
+  <div class="side">
+    <button class="btn down" data-key="down" aria-label="Смотреть вниз">▼</button>
+    <button class="btn jump" data-key="jump" aria-label="Прыжок">▲</button>
+  </div>
+</div>
+
+
+<div id="pause-menu" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+  <div class="pause-card">
+    <h1 id="pause-title">Пауза</h1>
+    <p>Передохни. Мир подождёт.</p>
+    <button id="pause-resume" class="pause-primary">Продолжить</button>
+    <button id="pause-restart" class="pause-secondary">Рестарт уровня</button>
+  </div>
+</div>
+
+<div id="overlay" class="show">
+  <div class="card">
+    <h1 id="ov-title">Платформер</h1>
+    <p id="ov-text">Пройди путь от загадочного леса до древней башни. Собирай искры, открывай улучшения и узнай, кто посылает сигнал. 5 глав истории, включая битву со Стражем.</p>
+    <div id="ov-shop" class="shop-list" style="display:none"></div>
+    <button id="ov-btn" class="primary">Играть</button>
+  </div>
+</div>
+
+<script src="input.js"></script>
+<script src="collision.js"></script>
+<script src="Player.js"></script>
+<script src="Game.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
